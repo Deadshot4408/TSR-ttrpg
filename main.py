@@ -40,7 +40,7 @@ def main():
         # Handle various commands
         if command == "help":
             # Display available commands
-            print("\nCommands: move <direction>, stats, inventory, quit")
+            print("\nCommands: move <direction>, stats, inventory, map, quit")
         elif command.startswith("move"):
             # Handle movement by extracting the direction
             try:
@@ -63,6 +63,10 @@ def main():
                 print("Your inventory is empty.")
             else:
                 print("Your inventory:", ", ".join(player.inventory))
+        elif command == "map":
+            print("\nMap of the area:")
+            for direction, location in current_location.connections.items():
+                print(f"{direction.title()}: {location.name}")
         elif command == "quit":
             # Exit the game
             print("Thanks for playing!")
@@ -70,6 +74,23 @@ def main():
         else:
             # Handle invalid commands
             print("Invalid command. Type 'help' to see available commands.")
+
+        if current_location.name == "Whispering Woods":
+            print("You hear strange whispers around you... Something might be hidden here.")
+            if "Ancient Chest" not in player.inventory:
+                print("You find an Ancient Chest!")
+                player.add_to_inventory("Ancient Chest")
+        elif current_location.name == "Emberforge Keep":
+            print("The heat from the molton lava makes it hard to breathe.")
+
+        if current_location.name == "Emberforge Keep":
+            if "Fire-Resistance Cloak" not in player.inventory:
+                print("The heat is unbearable! You cannot explore further without a Fire-Resistance Cloak.")
+                current_location = current_location.connections["west"] # Move the player back
+            else:
+                print("Thanks to the Fire-Resistance Cloak, you can explore further.")
+            
+
 
 # Ensure the script runs only when executed directly
 if __name__ == "__main__":
