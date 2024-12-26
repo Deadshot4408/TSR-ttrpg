@@ -10,8 +10,16 @@ def main():
     # Create the starting town and forest, and connect them
     town = Location("Ashenford", "A peaceful village with green fields.")
     forest = Location("Whispering Woods", "A dark, eerie forest filled with whispers.")
+    emberforge = Location("Emberforge Keep", "A ruined fortress surrounded by molten lava and jagged rocks.")
+    frozen_wastes = Location("Frozen Wastes", "A desolate tundra with snow and icy winds.")
+
+    # Connecting Locations
     town.connect("north", forest)
     forest.connect("south", town)
+    forest.connect("east", emberforge)
+    emberforge.connect("west", forest)
+    emberforge.connect("north", frozen_wastes)
+    frozen_wastes.connect("south", emberforge)
 
     # Initialize player and starting location
     player_name = input("Enter your character's name: ")
